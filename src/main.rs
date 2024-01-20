@@ -7,7 +7,7 @@ fn main() -> Result<(), slint::PlatformError> {
     ui.on_calculate_savings({
         let ui_handle = ui.as_weak();
         
-        move |savings: SharedString, interest: SharedString, deposits: SharedString, years: SharedString| {
+        move |savings: SharedString, interest: SharedString, deposits: SharedString, years: SharedString, payout_years: SharedString| {
             let ui = ui_handle.unwrap();
             let float_savings:f64 = parse_string_to_float(savings);
             let mut float_interest:f64 = parse_string_to_float(interest);
@@ -16,25 +16,13 @@ fn main() -> Result<(), slint::PlatformError> {
             if float_interest > 1.0 {
                 float_interest = float_interest / 100.0;
             };
-            ui.set_total_savings(calculate_interest(float_savings, float_interest, float_deposits, float_years).into());
-        }
-    });
-
-    ui.on_calculate_monthly_salary({
-        let ui_handle = ui.as_weak();
-        
-        move |final_balance: SharedString, payout_years: SharedString, interest: SharedString| {
-            println!("{}", final_balance);
-            println!("{}", payout_years);
-            let ui = ui_handle.unwrap();
-            let float_final_balance:f64 = parse_string_to_float(final_balance);
+            let total_savings:String = calculate_interest(float_savings, float_interest, float_deposits, float_years);
+            let float_total_savings = parse_string_to_float(slint::SharedString::from(total_savings.clone()));
             let float_payout_years:f64 = parse_string_to_float(payout_years);
             let payout_months = float_payout_years * 12.0 * -1.0;
-            let mut float_interest:f64 = parse_string_to_float(interest);
-            if float_interest > 1.0 {
-                float_interest = float_interest / 100.0;
-                };
-            ui.set_monthly_salary(calculate_retirement_income(float_final_balance, payout_months, float_interest).into());
+            let retirement_income:String = calculate_retirement_income(float_total_savings, payout_months, float_interest);
+            ui.set_total_savings(total_savings.into());
+            ui.set_monthly_salary(retirement_income.into());
         }
     });
 

@@ -5,8 +5,7 @@ export component AppWindow inherits Window {
     in property <string> total-savings: "0";
     in property <string> monthly-salary: "0";
 
-    callback calculate-savings(string, string, string, string);
-    callback calculate-monthly-salary(string, string, string);
+    callback calculate-savings(string, string, string, string, string);
 
     GridLayout {
         padding: 5px;
@@ -19,7 +18,7 @@ export component AppWindow inherits Window {
             }
             savings := LineEdit {
                 input-type: decimal;
-                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text)}
+                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text, payout-timeframe.text)}
             }
         }
         Row {
@@ -30,7 +29,7 @@ export component AppWindow inherits Window {
             }
             interest := LineEdit {
                 input-type: decimal;
-                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text)}
+                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text, payout-timeframe.text)}
             }
         }
         Row {
@@ -41,7 +40,7 @@ export component AppWindow inherits Window {
             }
             deposits := LineEdit {
                 input-type: decimal;
-                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text)}
+                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text, payout-timeframe.text)}
             }
         }
         Row {
@@ -52,7 +51,7 @@ export component AppWindow inherits Window {
             }
             saving-timeframe := LineEdit {
                 input-type: decimal;
-                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text)}
+                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text, payout-timeframe.text)}
             }
         }
         Row {
@@ -63,7 +62,7 @@ export component AppWindow inherits Window {
             }
             payout-timeframe := LineEdit {
                 input-type: decimal;
-                edited => {calculate-monthly-salary(total-savings.text, payout-timeframe.text, interest.text)}
+                edited => {calculate-savings(savings.text, interest.text, deposits.text, saving-timeframe.text, payout-timeframe.text)}
             }
         }
         Row {
