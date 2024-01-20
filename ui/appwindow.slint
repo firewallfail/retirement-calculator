@@ -4,6 +4,8 @@ export component AppWindow inherits Window {
     title: "Retirement Calculator";
     in property <string> total-savings: "0";
     in property <string> monthly-salary: "0";
+    in property <string> monthly-salary-adjusted: "0";
+    in property <string> total-savings-adjusted: "0";
 
     callback calculate-savings(string, string, string, string, string);
 
@@ -73,6 +75,20 @@ export component AppWindow inherits Window {
             }
             total-savings := Text {
                 text: root.total-savings;
+                color: black;
+                vertical-alignment: center;
+            }
+        }
+        Row {
+            Text {
+                text: "Inflation Adjusted";
+                color: black;
+                vertical-alignment: top;
+            }
+            total-savings-adjusted := Text {
+                text: root.total-savings-adjusted;
+                color: black;
+                vertical-alignment: top;
             }
         }
         Row {
@@ -83,6 +99,20 @@ export component AppWindow inherits Window {
             }
             monthly-salary := Text {
                 text: root.monthly-salary;
+                color: black;
+                vertical-alignment: center;
+            }
+        }
+        Row {
+            Text {
+                text: "Inflation Adjusted";
+                color: black;
+                vertical-alignment: top;
+            }
+            monthly-salary-adjusted := Text {
+                text: root.monthly-salary-adjusted;
+                color: black;
+                vertical-alignment: top;
             }
         }
     }
